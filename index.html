@@ -8,31 +8,28 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/flow/style.css">
     <title>Document</title>
-    <style>
-
-    </style>
 </head>
 
 <body>
 
     <div class="container">
         <div class="row my-5">
-            <div class="col-sm-6 col-lg-4">
+            <div class="col-sm-12 col-lg-4">
                 <div class="d-flex gap-4 align-items-center justify-content-center">
-                    <div class=""><img src="./assets/flow/img-5.png" class="img-fluid" /></div>
-                    <div class="btn-img">
-                        <div class="w-100 my-3"><a href="#" data-image="image_1" class="active-link"> <img
+                    <div class="d-none d-lg-block"><img src="./assets/flow/img-5.png" class="img-fluid" /></div>
+                    <div class="btn-img d-flex d-lg-block gap-4">
+                        <div class="w-100 my-2"><a href="#" data-image="image_1" class="active-link"> <img
                                     src="./assets/flow/circle-1.png" class="img-fluid" /></a></div>
-                        <div class="w-100 my-3"><a href="#" data-image="image_2"> <img src="./assets/flow/circle-2.png"
+                        <div class="w-100 my-2"><a href="#" data-image="image_2"> <img src="./assets/flow/circle-2.png"
                                     class="img-fluid" /></a></div>
-                        <div class="w-100 my-3"><a href="#" data-image="image_3"> <img src="./assets/flow/circle-3.png"
+                        <div class="w-100 my-2"><a href="#" data-image="image_3"> <img src="./assets/flow/circle-3.png"
                                     class="img-fluid" /></a></div>
-                        <div class="w-100 my-3"><a href="#" data-image="image_4"> <img src="./assets/flow/circle-4.png"
+                        <div class="w-100 my-2"><a href="#" data-image="image_4"> <img src="./assets/flow/circle-4.png"
                                     class="img-fluid" /></a></div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-8">
+            <div class="col-sm-12 col-lg-8">
                 <div class="position-relative">
                     <div><img src="./assets/flow/img-1.png" class="img-fluid position-absolute slider-image active"
                             id="image_1" />
@@ -59,6 +56,10 @@
         document.addEventListener('DOMContentLoaded', function () {
             const links = document.querySelectorAll('a[data-image]');
             const images = document.querySelectorAll('.slider-image');
+            const img_1 = document.getElementById("image_1");
+            const img_2 = document.getElementById("image_2");
+            const img_3 = document.getElementById("image_3");
+            const img_4 = document.getElementById("image_4");
             let isDragging = false;
             let startX = 0;
             let currentIndex = 0;
@@ -86,6 +87,45 @@
                 event.preventDefault();
                 const targetId = this.getAttribute('data-image');
                 activateImage(targetId);
+                // Apply conditional styling based on the clicked link
+
+                if (targetId === 'image_1') {
+                    img_1.style.marginLeft = '0px';
+                    img_1.style.marginTop = '0px';
+                    img_2.style.marginLeft = '60px';
+                    img_2.style.marginTop = '60px';
+                    img_3.style.marginLeft = '40px';
+                    img_3.style.marginTop = '40px';
+                    img_4.style.marginLeft = '20px';
+                    img_4.style.marginTop = '20px';
+                } else if (targetId === 'image_2') {
+                    img_1.style.marginLeft = '60px';
+                    img_1.style.marginTop = '60px';
+                    img_2.style.marginLeft = '0px';
+                    img_2.style.marginTop = '0px';
+                    img_3.style.marginLeft = '40px';
+                    img_3.style.marginTop = '40px';
+                    img_4.style.marginLeft = '20px';
+                    img_4.style.marginTop = '20px';
+                } else if (targetId === 'image_3') {
+                    img_1.style.marginLeft = '60px';
+                    img_1.style.marginTop = '60px';
+                    img_2.style.marginLeft = '40px';
+                    img_2.style.marginTop = '40px';
+                    img_3.style.marginLeft = '0px';
+                    img_3.style.marginTop = '0px';
+                    img_4.style.marginLeft = '20px';
+                    img_4.style.marginTop = '20px';
+                } else {
+                    img_1.style.marginLeft = '60px';
+                    img_1.style.marginTop = '60px';
+                    img_2.style.marginLeft = '40px';
+                    img_2.style.marginTop = '40px';
+                    img_3.style.marginLeft = '20px';
+                    img_3.style.marginTop = '20px';
+                    img_4.style.marginLeft = '0px';
+                    img_4.style.marginTop = '0px';
+                }
             }
 
             function handleMouseDown(event) {
@@ -101,16 +141,18 @@
                     currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
                     startX = event.clientX;
                     activateImage(images[currentIndex].id);
+                    isDragging = false; // Reset dragging flag after activating the image
                 } else if (deltaX < -50) {
                     // Dragged to the left
                     currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
                     startX = event.clientX;
                     activateImage(images[currentIndex].id);
+                    isDragging = false; // Reset dragging flag after activating the image
                 }
             }
 
             function handleMouseUp() {
-                isDragging = false;
+                isDragging = false; // Reset dragging flag
             }
 
             // Add click event to links
@@ -128,6 +170,8 @@
             // Initialize the first image and link as active
             activateImage('image_1');
         });
+
+
 
     </script>
 </body>
